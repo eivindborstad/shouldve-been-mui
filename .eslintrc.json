@@ -1,0 +1,328 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": ["tsconfig.json"],
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "react-hooks"
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            4,
+            { 
+                "SwitchCase": 1 
+            } 
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "comma-dangle": [
+            "error",
+            "always-multiline"
+        ],
+        "@typescript-eslint/strict-boolean-expressions": [
+            "error",
+            {
+                "allowString": false,
+                "allowNumber": false,
+                "allowNullableObject": false
+            }
+        ],
+        "no-constant-condition": "error",
+        "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/ban-ts-ignore": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/type-annotation-spacing": "error",
+        "no-empty": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/prefer-function-type": "error",
+        "@typescript-eslint/prefer-includes": "error",
+        "@typescript-eslint/prefer-literal-enum-member": "error",
+        "@typescript-eslint/prefer-namespace-keyword": "error",
+        "@typescript-eslint/prefer-nullish-coalescing": "error",
+        "@typescript-eslint/prefer-optional-chain": "error",
+        "@typescript-eslint/prefer-readonly": "error",
+        "@typescript-eslint/prefer-reduce-type-parameter": "error",
+        "@typescript-eslint/prefer-regexp-exec": "error",
+        "@typescript-eslint/prefer-return-this-type": "error",
+        "@typescript-eslint/prefer-string-starts-ends-with": "error",
+        "@typescript-eslint/promise-function-async": "error",
+        "@typescript-eslint/require-array-sort-compare": "error",
+        "@typescript-eslint/restrict-plus-operands": "error",
+        "@typescript-eslint/restrict-template-expressions": "error",
+        "@typescript-eslint/switch-exhaustiveness-check": "error",
+        "@typescript-eslint/triple-slash-reference": "error",
+        "@typescript-eslint/unbound-method": [
+            "error",
+            {
+                "ignoreStatic": true
+            }
+        ],
+        "@typescript-eslint/unified-signatures": "error",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/await-thenable": "error",
+        "@typescript-eslint/consistent-indexed-object-style": "error",
+        "@typescript-eslint/consistent-type-assertions": "error",
+        "@typescript-eslint/consistent-type-definitions": [
+            "error",
+            "type"
+        ],
+        "@typescript-eslint/consistent-type-exports": "error",
+        "@typescript-eslint/consistent-type-imports": "error",
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/explicit-member-accessibility": "error",
+        "@typescript-eslint/explicit-module-boundary-types": "error",
+        "@typescript-eslint/method-signature-style": "error",
+        "@typescript-eslint/no-base-to-string": "error",
+        "@typescript-eslint/no-confusing-non-null-assertion": "error",
+        "@typescript-eslint/no-confusing-void-expression": [
+            "error",
+            {
+                "ignoreArrowShorthand": true
+            }
+        ],
+        "@typescript-eslint/no-duplicate-enum-values": "error",
+        "@typescript-eslint/no-dynamic-delete": "error",
+        "@typescript-eslint/no-empty-interface": "error",
+        "@typescript-eslint/no-extra-non-null-assertion": "error",
+        "@typescript-eslint/no-extraneous-class": "error",
+        "@typescript-eslint/no-floating-promises": "error",
+        "@typescript-eslint/no-for-in-array": "error",
+        "@typescript-eslint/no-invalid-void-type": "error",
+        "@typescript-eslint/no-meaningless-void-operator": "error",
+        "@typescript-eslint/no-misused-new": "error",
+        "@typescript-eslint/no-namespace": "error",
+        "@typescript-eslint/no-non-null-asserted-nullish-coalescing": "error",
+        "@typescript-eslint/no-non-null-assertion": "error",
+        "@typescript-eslint/parameter-properties": "error",
+        "@typescript-eslint/no-redundant-type-constituents": "error",
+        "@typescript-eslint/no-this-alias": "error",
+        "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
+        "@typescript-eslint/no-unnecessary-qualifier": "error",
+        "@typescript-eslint/no-unnecessary-type-arguments": "error",
+        "@typescript-eslint/no-unnecessary-type-assertion": "error",
+        "@typescript-eslint/no-unnecessary-type-constraint": "error",
+        "@typescript-eslint/no-unsafe-argument": "error",
+        "@typescript-eslint/no-unsafe-assignment": "error",
+        "@typescript-eslint/no-unsafe-call": "error",
+        "@typescript-eslint/no-useless-empty-export": "error",
+        "@typescript-eslint/non-nullable-type-assertion-style": "error",
+        "@typescript-eslint/prefer-as-const": "error",
+        "@typescript-eslint/prefer-enum-initializers": "error",
+        "array-callback-return": "error",
+        "no-await-in-loop": "error",
+        "no-constant-binary-expression": "error",
+        "no-constructor-return": "error",
+        "no-self-compare": "error",
+        "no-template-curly-in-string": "error",
+        "no-unmodified-loop-condition": "error",
+        "no-unreachable-loop": "error",
+        "no-unused-private-class-members": "error",
+        "require-atomic-updates": "error",
+        "accessor-pairs": "error",
+        "block-scoped-var": "error",
+        "class-methods-use-this": "error",
+        "consistent-return": "error",
+        "consistent-this": "error",
+        "curly": "error",
+        "eqeqeq": "error",
+        "func-name-matching": "error",
+        "grouped-accessor-pairs": "error",
+        "no-alert": "warn",
+        "no-caller": "error",
+        "no-case-declarations": "error",
+        "no-confusing-arrow": "error",
+        "default-case-last": "error",
+        "no-extra-bind": "error",
+        "no-implicit-globals": "error",
+        "no-invalid-this": "error",
+        "no-iterator": "error",
+        "no-labels": "error",
+        "no-lone-blocks": "error",
+        "no-multi-assign": "error",
+        "no-new": "error",
+        "no-octal-escape": "error",
+        "no-param-reassign": "error",
+        "no-proto": "error",
+        "no-return-assign": "error",
+        "no-script-url": "error",
+        "no-sequences": "error",
+        "no-unneeded-ternary": "error",
+        "no-useless-call": "error",
+        "no-useless-computed-key": "error",
+        "no-useless-concat": "error",
+        "no-useless-return": "error",
+        "no-var": "error",
+        "prefer-const": "error",
+        "prefer-object-has-own": "error",
+        "prefer-promise-reject-errors": "error",
+        "prefer-rest-params": "error",
+        "prefer-spread": "error",
+        "quote-props": [
+            "error",
+            "as-needed"
+        ],
+        "one-var": [
+            "error",
+            "never"
+        ],
+        "operator-assignment": "error",
+        "radix": "error",
+        "require-unicode-regexp": "error",
+        "yoda": "error",
+        "@typescript-eslint/member-delimiter-style": [
+            "error",
+            {
+                "multiline": {
+                    "delimiter": "comma",
+                    "requireLast": true
+                },
+                "singleline": {
+                    "delimiter": "comma",
+                    "requireLast": false
+                }
+            }
+        ],
+        "@typescript-eslint/array-type": [
+            "error",
+            {
+                "default": "array"
+            }            
+        ],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "dot-notation": "off",
+        "@typescript-eslint/dot-notation": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "no-array-constructor": "off",
+        "@typescript-eslint/no-array-constructor": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "no-dupe-class-members": "off",
+        "@typescript-eslint/no-dupe-class-members": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "no-extra-semi": "off",
+        "@typescript-eslint/no-extra-semi": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "no-implied-eval": "off",
+        "@typescript-eslint/no-implied-eval": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "no-loop-func": "off",
+        "@typescript-eslint/no-loop-func": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "no-loss-of-precision": "off",
+        "@typescript-eslint/no-loss-of-precision": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "no-redeclare": "off",
+        "@typescript-eslint/no-redeclare": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "no-throw-literal": "off",
+        "@typescript-eslint/no-throw-literal": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "no-unused-expressions": "off",
+        "@typescript-eslint/no-unused-expressions": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "warn",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "no-useless-constructor": "off",
+        "@typescript-eslint/no-useless-constructor": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "require-await": "off",
+        "@typescript-eslint/require-await": "warn",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "no-return-await": "off",
+        "@typescript-eslint/return-await": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "default-param-last": "off",
+        "@typescript-eslint/default-param-last": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "comma-spacing": "off",
+        "@typescript-eslint/comma-spacing": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "func-call-spacing": "off",
+        "@typescript-eslint/func-call-spacing": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "space-before-blocks": "off",
+        "@typescript-eslint/space-before-blocks": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "space-before-function-paren": "off",
+        "@typescript-eslint/space-before-function-paren": [
+            "error",
+            {
+                "anonymous": "never",
+                "named": "never",
+                "asyncArrow": "always"
+            }
+        ],
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "space-infix-ops": "off",
+        "@typescript-eslint/space-infix-ops": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "brace-style": "off",
+        "@typescript-eslint/brace-style": "error",
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "quotes": "off",
+        "@typescript-eslint/quotes": [
+            "error",
+            "single"
+        ],
+
+        // Note: you must disable the base rule as it can report incorrect errors
+        "semi": "off",
+        "@typescript-eslint/semi": [
+            "error",
+            "always"
+        ]
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
+}
