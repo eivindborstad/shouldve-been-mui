@@ -32,7 +32,6 @@ export function LoadingAnimation(props: LoadingAnimationProps): JSX.Element {
                     return (
                         <td
                             key={j}
-                            data-testid={'loadingAnimationCell_' + i.toString() + '_' + j.toString()}
                             style={{
                                 backgroundColor: cell ? currentTheme.palette.text.primary : currentTheme.palette.background.default,
                                 width: props.cellSize,
@@ -187,9 +186,7 @@ export function LoadingAnimation(props: LoadingAnimationProps): JSX.Element {
     }, [hasTerminated, grid, latestUpdateMillis, props.noChangeBehavior, props.frameMilliSeconds, props.loop, destructuredPropsInitialStateGenerator]);
 
     return (
-        <span
-            data-testid='loadingAnimation'
-        >
+        <span>
             <table style={{
                 display: 'inline-table',
                 border: '1px',
