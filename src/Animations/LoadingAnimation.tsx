@@ -66,41 +66,41 @@ export function LoadingAnimation(props: LoadingAnimationProps): JSX.Element {
                 
                 const newRow: boolean[] = [];
 
-                for (let j: number = 0; j < grid[i].length; j++) {
+                for (let j: number = 0; j < (grid[i]?.length ?? 0); j++) {
 
                     let livingNeighbours = 0;
 
                     if (props.loop) {
                         try {
-                            if (grid[modulo(i - 1, grid.length)][j]) {
+                            if (grid[modulo(i - 1, grid.length)]?.[j] ?? false) {
                                 livingNeighbours++;
                             } 
                             
-                            if (grid[modulo(i + 1, grid.length)][j]) {
+                            if (grid[modulo(i + 1, grid.length)]?.[j] ?? false) {
                                 livingNeighbours++;
                             } 
                             
-                            if (grid[i][modulo(j - 1, grid[i].length)]) {
+                            if (grid[i]?.[modulo(j - 1, grid[i]?.length ?? 0)] ?? false) {
                                 livingNeighbours++;
                             } 
                             
-                            if (grid[i][modulo(j + 1, grid[i].length)]) {
+                            if (grid[i]?.[modulo(j + 1, grid[i]?.length ?? 0)] ?? false) {
                                 livingNeighbours++;
                             } 
                             
-                            if (grid[modulo(i - 1, grid.length)][modulo(j - 1, grid[i].length)]) {
+                            if (grid[modulo(i - 1, grid.length)]?.[modulo(j - 1, grid[i]?.length ?? 0)] ?? false) {
                                 livingNeighbours++;
                             } 
                             
-                            if (grid[modulo(i - 1, grid.length)][modulo(j + 1, grid[i].length)]) {
+                            if (grid[modulo(i - 1, grid.length)]?.[modulo(j + 1, grid[i]?.length ?? 0)] ?? false) {
                                 livingNeighbours++;
                             } 
                             
-                            if (grid[modulo(i + 1, grid.length)][modulo(j - 1, grid[i].length)]) {
+                            if (grid[modulo(i + 1, grid.length)]?.[modulo(j - 1, grid[i]?.length ?? 0)] ?? false) {
                                 livingNeighbours++;
                             }
                             
-                            if (grid[modulo(i + 1, grid.length)][modulo(j + 1, grid[i].length)]) {
+                            if (grid[modulo(i + 1, grid.length)]?.[modulo(j + 1, grid[i]?.length ?? 0)] ?? false) {
                                 livingNeighbours++;
                             }
                         } catch (e: unknown) {
@@ -108,48 +108,48 @@ export function LoadingAnimation(props: LoadingAnimationProps): JSX.Element {
                         }
                     } else {
 
-                        if (i > 0 && grid[i - 1][j]) {
+                        if (i > 0 && (grid[i - 1]?.[j] ?? false)) {
                             livingNeighbours++;
                         } 
                         
-                        if (i < grid.length - 1 && grid[i + 1][j]) {
+                        if (i < grid.length - 1 && (grid[i + 1]?.[j] ?? false)) {
                             livingNeighbours++;
                         } 
                         
-                        if (j > 0 && grid[i][j - 1]) {
+                        if (j > 0 && (grid[i]?.[j - 1] ?? false)) {
                             livingNeighbours++;
                         } 
                         
-                        if (j < grid[i].length - 1 && grid[i][j + 1]) {
+                        if (j < (grid[i]?.length ?? 0) - 1 && (grid[i]?.[j + 1] ?? false)) {
                             livingNeighbours++;
                         } 
                         
-                        if (i > 0 && j > 0 && grid[i - 1][j - 1]) {
+                        if (i > 0 && j > 0 && (grid[i - 1]?.[j - 1] ?? false)) {
                             livingNeighbours++;
                         } 
                         
-                        if (i > 0 && j < grid[i].length - 1 && grid[i - 1][j + 1]) {
+                        if (i > 0 && j < (grid[i]?.length ?? 0) - 1 && (grid[i - 1]?.[j + 1] ?? false)) {
                             livingNeighbours++;
                         } 
                         
-                        if (i < grid.length - 1 && j > 0 && grid[i + 1][j - 1]) {
+                        if (i < grid.length - 1 && j > 0 && (grid[i + 1]?.[j - 1] ?? false)) {
                             livingNeighbours++;
                         }
                         
-                        if (i < grid.length - 1 && j < grid[i].length - 1 && grid[i + 1][j + 1]) {
+                        if (i < grid.length - 1 && j < (grid[i]?.length ?? 0) - 1 && (grid[i + 1]?.[j + 1] ?? false)) {
                             livingNeighbours++;
                         }
                     }
 
-                    if (grid[i][j] && (livingNeighbours === 2 || livingNeighbours === 3)) {
+                    if ((grid[i]?.[j] ?? false) && (livingNeighbours === 2 || livingNeighbours === 3)) {
                         newRow.push(true);
-                    } else if (!grid[i][j] && livingNeighbours === 3) {
+                    } else if (!(grid[i]?.[j] ?? false) && livingNeighbours === 3) {
                         newRow.push(true);
                     } else {
                         newRow.push(false);
                     }
 
-                    if (newRow[j] !== grid[i][j]) {
+                    if (newRow[j] !== grid[i]?.[j]) {
                         gridsAreStillIdentical = false;
                     }
                 }
