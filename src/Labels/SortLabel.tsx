@@ -11,7 +11,7 @@ type SortLabelProps = {
     columnId: string,
 };
 
-export function SortLabel(props: SortLabelProps): JSX.Element {
+export function SortLabel(props: Readonly<SortLabelProps>): JSX.Element {
 
     function handleSortChange(columnId: string): void {
         

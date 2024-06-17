@@ -8,7 +8,7 @@ type PinCodeInputProps = {
     onComplete: (pin: string) => void,
 };
 
-export function PinCodeInput(props: PinCodeInputProps): JSX.Element {
+export function PinCodeInput(props: Readonly<PinCodeInputProps>): JSX.Element {
 
     const currentTheme: Theme = useTheme();
 

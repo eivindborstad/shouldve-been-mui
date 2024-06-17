@@ -1,6 +1,6 @@
 {
   "name": "shouldve-been-mui",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "main": "./dist/entry.js",
   "module": "./dist/entry.mjs",
   "types": "./dist/entry.d.ts",
@@ -11,6 +11,8 @@
   "license": "ISC",
   "homepage": "https://github.com/eivindborstad/shouldve-been-mui",
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
@@ -24,6 +26,7 @@
     "@types/node": "^20.10.6",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
+    "date-fns": "^2.30.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",

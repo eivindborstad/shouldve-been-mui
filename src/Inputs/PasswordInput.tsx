@@ -18,7 +18,7 @@ type PasswordInputProps = {
     maxWidth: string | number | undefined,
 };
 
-export function PasswordInput(props: PasswordInputProps): JSX.Element {
+export function PasswordInput(props: Readonly<PasswordInputProps>): JSX.Element {
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
 

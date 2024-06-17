@@ -16,7 +16,7 @@ type SearchInputProps = {
     maxWidth: string | number | undefined,
 };
 
-export function SearchInput(props: SearchInputProps): JSX.Element {
+export function SearchInput(props: Readonly<SearchInputProps>): JSX.Element {
 
     return (
         <FormControl style={{

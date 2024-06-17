@@ -22,7 +22,7 @@ type LoadingButtonProps = {
     fontSize: string,
 };
 
-export function LoadingButton(props: LoadingButtonProps): JSX.Element {
+export function LoadingButton(props: Readonly<LoadingButtonProps>): JSX.Element {
 
     return (
         <Button 

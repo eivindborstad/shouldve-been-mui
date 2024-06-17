@@ -8,7 +8,7 @@ type ErrorSnackbarProps = {
     setMessage: (value: string | null) => void,
 };
 
-export function ErrorSnackbar(props: ErrorSnackbarProps): JSX.Element {
+export function ErrorSnackbar(props: Readonly<ErrorSnackbarProps>): JSX.Element {
 
     return (
         <Snackbar

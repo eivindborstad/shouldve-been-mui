@@ -19,7 +19,7 @@ type UrlInputProps = {
     maxWidth: string | number | undefined,
 };
 
-export function UrlInput(props: UrlInputProps): JSX.Element {
+export function UrlInput(props: Readonly<UrlInputProps>): JSX.Element {
 
     function handleProtocolChange(e: SelectChangeEvent): void {
 

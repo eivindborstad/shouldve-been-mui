@@ -8,7 +8,7 @@ type WarningMessageProps = {
     maxWidth: string | number | undefined,
 };
 
-export function WarningMessage(props: WarningMessageProps): JSX.Element {
+export function WarningMessage(props: Readonly<WarningMessageProps>): JSX.Element {
 
     const currentTheme: Theme = useTheme();
 

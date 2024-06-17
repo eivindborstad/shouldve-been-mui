@@ -31,7 +31,7 @@ type NumberInputProps = {
     fontSize: string,
 };
 
-export function NumberInput(props: NumberInputProps): JSX.Element {
+export function NumberInput(props: Readonly<NumberInputProps>): JSX.Element {
 
     function handleChange(e: React.ChangeEvent): void {
 

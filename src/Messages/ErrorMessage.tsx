@@ -8,7 +8,7 @@ type ErrorMessageProps = {
     maxWidth: string | number | undefined,
 };
 
-export function ErrorMessage(props: ErrorMessageProps): JSX.Element {
+export function ErrorMessage(props: Readonly<ErrorMessageProps>): JSX.Element {
 
     const currentTheme: Theme = useTheme();
 

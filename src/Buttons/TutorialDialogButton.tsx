@@ -10,7 +10,7 @@ type TutorialDialogButtonProps = {
     dialog: (controller: boolean, onClose: () => void) => JSX.Element,    
 };
 
-export function TutorialDialogButton(props: TutorialDialogButtonProps): JSX.Element {
+export function TutorialDialogButton(props: Readonly<TutorialDialogButtonProps>): JSX.Element {
 
     const [controller, setController] = useState<boolean>(false);
 

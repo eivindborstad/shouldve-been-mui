@@ -21,7 +21,7 @@ type SelfSustainingLoadingButtonProps = {
     fontSize: string,
 };
 
-export function SelfSustainingLoadingButton(props: SelfSustainingLoadingButtonProps): JSX.Element {
+export function SelfSustainingLoadingButton(props: Readonly<SelfSustainingLoadingButtonProps>): JSX.Element {
 
     const [pending, setPending] = useState<boolean>(false);
 

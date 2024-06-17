@@ -20,9 +20,10 @@ type AutocompleteInputProps = {
     fontSize: string,
     focusFlag: number | null,
     limit: number | null,
+    backgroundColor: string | undefined,
 };
 
-export function AutocompleteInput(props: AutocompleteInputProps): JSX.Element {
+export function AutocompleteInput(props: Readonly<AutocompleteInputProps>): JSX.Element {
 
     const focusRef: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
 
@@ -53,7 +54,10 @@ export function AutocompleteInput(props: AutocompleteInputProps): JSX.Element {
                 options={props.options}
                 isOptionEqualToValue={(option: { label: string, id: string, disabled: boolean } | null, value: { label: string, id: string, disabled: boolean } | null): boolean => option?.id === value?.id}
                 onChange={(e: React.SyntheticEvent, value: { label: string, id: string, disabled: boolean } | null): void => props.onChange(value?.id ?? '')}
-                sx={{ width: props.width }}
+                sx={{ 
+                    width: props.width,
+                    backgroundColor: props.backgroundColor,
+                }}
                 disabled={props.disabled}
                 renderInput={(params: AutocompleteRenderInputParams): JSX.Element => <TextField {...params} size={props.dense ? 'small' : undefined} label={props.labelText} />}
                 filterOptions={filterOptions}
@@ -74,4 +78,5 @@ AutocompleteInput.defaultProps = {
     rerenderFlag: 0,
     fontSize: '16px',
     focusFlag: null,
+    backgroundColor: undefined,
 };

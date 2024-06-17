@@ -8,7 +8,7 @@ type SuccessSnackbarProps = {
     setMessage: (value: string | null) => void,
 };
 
-export function SuccessSnackbar(props: SuccessSnackbarProps): JSX.Element {
+export function SuccessSnackbar(props: Readonly<SuccessSnackbarProps>): JSX.Element {
 
     return (
         <Snackbar

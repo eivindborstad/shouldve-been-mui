@@ -1,19 +1,21 @@
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import zIndex from '@mui/material/styles/zIndex';
 import React from 'react';
 import type { JSX } from 'react';
 
 type LoadDataBackdropProps = {
     dataIsLoaded: boolean,   
+    zIndex: number | undefined,
 };
 
-export function LoadDataBackdrop(props: LoadDataBackdropProps): JSX.Element {
+export function LoadDataBackdrop(props: Readonly<LoadDataBackdropProps>): JSX.Element {
 
     return (
         <Backdrop
             open={!props.dataIsLoaded}  
             style={{
-                zIndex: 5000,
+                zIndex: props.zIndex, //use higher z index for dialogs, so it will then block that dialog, but not block dialogs on top of a loading view
                 color: '#FFFFFF',
                 position: 'absolute',
                 borderRadius: '25px',
@@ -23,3 +25,7 @@ export function LoadDataBackdrop(props: LoadDataBackdropProps): JSX.Element {
         </Backdrop>
     );
 }
+
+LoadDataBackdrop.defaultProps = {
+    zIndex: undefined,
+};

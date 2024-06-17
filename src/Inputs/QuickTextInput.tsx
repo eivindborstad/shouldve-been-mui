@@ -32,7 +32,7 @@ type QuickTextInputProps = {
     minRows: number,
 };
 
-export function QuickTextInput(props: QuickTextInputProps): JSX.Element {
+export function QuickTextInput(props: Readonly<QuickTextInputProps>): JSX.Element {
 
     const [inputValue, setInputValue] = useState<string>(props.value);
 

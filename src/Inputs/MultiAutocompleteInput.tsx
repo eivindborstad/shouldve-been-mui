@@ -19,9 +19,10 @@ type MultiAutocompleteInputProps = {
     rerenderFlag: number,
     fontSize: string,
     focusFlag: number | null,
+    backgroundColor: string | undefined,
 };
 
-export function MultiAutocompleteInput(props: MultiAutocompleteInputProps): JSX.Element {
+export function MultiAutocompleteInput(props: Readonly<MultiAutocompleteInputProps>): JSX.Element {
 
     const focusRef: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
 
@@ -49,7 +50,10 @@ export function MultiAutocompleteInput(props: MultiAutocompleteInputProps): JSX.
                 options={props.options}
                 isOptionEqualToValue={(option: { label: string, id: string } | null, value: { label: string, id: string } | null): boolean => option?.id === value?.id}
                 onChange={(e: SyntheticEvent, values: ({ label: string, id: string } | null)[]): void => props.onChange(values.map((value: { label: string, id: string } | null) => value?.id ?? ''))}
-                sx={{ width: props.width }}
+                sx={{ 
+                    width: props.width,
+                    backgroundColor: props.backgroundColor,
+                }}
                 disabled={props.disabled}
                 renderInput={(params: AutocompleteRenderInputParams): JSX.Element => <TextField {...params} size={props.dense ? 'small' : undefined} />}
             />
@@ -68,4 +72,5 @@ MultiAutocompleteInput.defaultProps = {
     rerenderFlag: 0,
     fontSize: '16px',
     focusFlag: null,
+    backgroundColor: undefined,
 };

@@ -33,7 +33,7 @@ type QuickNumberInputProps = {
     focusFlag: number | null,
 };
 
-export function QuickNumberInput(props: QuickNumberInputProps): JSX.Element {
+export function QuickNumberInput(props: Readonly<QuickNumberInputProps>): JSX.Element {
 
     const [inputValue, setInputValue] = useState<string>(props.value);
 

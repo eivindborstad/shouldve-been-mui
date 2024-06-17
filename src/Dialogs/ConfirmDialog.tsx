@@ -18,7 +18,7 @@ type ConfirmDialogProps = {
     loadingConfirm: boolean,
 };
 
-export function ConfirmDialog(props: ConfirmDialogProps): JSX.Element {
+export function ConfirmDialog(props: Readonly<ConfirmDialogProps>): JSX.Element {
 
     const [pending, setPending] = useState<boolean>(false);
 

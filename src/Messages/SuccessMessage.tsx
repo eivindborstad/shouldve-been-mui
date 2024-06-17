@@ -8,7 +8,7 @@ type SuccessMessageProps = {
     maxWidth: string | number | undefined,
 };
 
-export function SuccessMessage(props: SuccessMessageProps): JSX.Element {
+export function SuccessMessage(props: Readonly<SuccessMessageProps>): JSX.Element {
 
     const currentTheme: Theme = useTheme();
 

@@ -12,7 +12,7 @@ type LoadingAnimationProps = {
     cellSize: number,
 };
 
-export function LoadingAnimation(props: LoadingAnimationProps): JSX.Element {
+export function LoadingAnimation(props: Readonly<LoadingAnimationProps>): JSX.Element {
 
     const [grid, setGrid] = useState<boolean[][]>([]);
     const [hasTerminated, setHasTerminated] = useState<boolean>(false);

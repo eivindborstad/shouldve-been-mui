@@ -17,7 +17,7 @@ type DateInputProps = {
     labelText: string,
 };
 
-export function DateInput(props: DateInputProps): JSX.Element {
+export function DateInput(props: Readonly<DateInputProps>): JSX.Element {
 
     function handleChange(value: Date | null): void {
 
