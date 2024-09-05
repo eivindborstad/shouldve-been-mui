@@ -15,7 +15,7 @@ export function LoadDataBackdrop(props: Readonly<LoadDataBackdropProps>): JSX.El
         <Backdrop
             open={!props.dataIsLoaded}  
             style={{
-                zIndex: props.zIndex, //use higher z index for dialogs, so it will then block that dialog, but not block dialogs on top of a loading view
+                zIndex: props.zIndex, //use higher z index for dialogs, so it will then block that dialog, but not block dialogs on top of a loading view (currently using 1500 in dialogs and 1000 in non-dialogs)
                 color: '#FFFFFF',
                 position: 'absolute',
                 borderRadius: '25px',
