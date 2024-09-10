@@ -9,16 +9,32 @@ import type { JSX } from 'react';
 type DateInputProps = {
     value: Date | null,
     onChange: (value: Date | null) => void,
-    minWidth: number | undefined,
-    maxWidth: number | undefined,
-    padding: string,
-    disabled: boolean,
-    dense: boolean,
-    labelText: string,
+    minWidth?: number | undefined,
+    maxWidth?: number | undefined,
+    padding?: string | undefined,
+    disabled?: boolean | undefined,
+    dense?: boolean | undefined,
+    labelText?: string | undefined,
+};
+
+const defaultProps = {
+    minWidth: 250,
+    maxWidth: 5000,
+    padding: '0px',
+    dense: false,
+    disabled: false,
+    labelText: '',
 };
 
 export function DateInput(props: Readonly<DateInputProps>): JSX.Element {
 
+    const minWidth: number = props.minWidth ?? defaultProps.minWidth;
+    const maxWidth: number = props.maxWidth ?? defaultProps.maxWidth;
+    const padding: string = props.padding ?? defaultProps.padding;
+    const dense: boolean = props.dense ?? defaultProps.dense;
+    const disabled: boolean = props.disabled ?? defaultProps.disabled;
+    const labelText: string = props.labelText ?? defaultProps.labelText;
+    
     function handleChange(value: Date | null): void {
 
         let newDate: Date | null = null;
@@ -34,9 +50,9 @@ export function DateInput(props: Readonly<DateInputProps>): JSX.Element {
     return (
         <FormControl
             style={{
-                minWidth: props.minWidth,
-                maxWidth: props.maxWidth,
-                padding: props.padding,
+                minWidth: minWidth,
+                maxWidth: maxWidth,
+                padding: padding,
             }}
         >
             <table>
@@ -49,7 +65,7 @@ export function DateInput(props: Readonly<DateInputProps>): JSX.Element {
                                 onClick={(): void => handleChange(null)}
                                 size='small'
                                 aria-label='clear'
-                                disabled={props.disabled}
+                                disabled={disabled}
                             >
                                 <Clear fontSize='small' />
                             </IconButton>
@@ -59,16 +75,16 @@ export function DateInput(props: Readonly<DateInputProps>): JSX.Element {
                                 <MobileDatePicker
                                     value={props.value}
                                     onChange={handleChange}
-                                    disabled={props.disabled}
+                                    disabled={disabled}
                                     format='yyyy-MM-dd'
-                                    label={props.labelText}
+                                    label={labelText}
                                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                     slotProps={{
                                         textField: {
-                                            size: props.dense ? 'small' : undefined,
+                                            size: dense ? 'small' : undefined,
                                             style: {
-                                                minWidth: props.minWidth === undefined ? undefined : props.minWidth - 35,
-                                                maxWidth: props.maxWidth === undefined ? undefined : props.maxWidth - 35,
+                                                minWidth: minWidth === undefined ? undefined : minWidth - 35,
+                                                maxWidth: maxWidth === undefined ? undefined : maxWidth - 35,
                                             },
                                         },
                                     }}
@@ -81,13 +97,3 @@ export function DateInput(props: Readonly<DateInputProps>): JSX.Element {
         </FormControl>
     );
 }
-
-DateInput.defaultProps = {
-    onKeyDown: (): void => {},
-    minWidth: 250,
-    maxWidth: 5000,
-    padding: '0px',
-    dense: false,
-    disabled: false,
-    labelText: '',
-};

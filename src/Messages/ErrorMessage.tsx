@@ -29,7 +29,3 @@ export function ErrorMessage(props: Readonly<ErrorMessageProps>): JSX.Element {
         </>
     );
 }
-
-ErrorMessage.defaultProps = {
-    maxWidth: undefined,
-};

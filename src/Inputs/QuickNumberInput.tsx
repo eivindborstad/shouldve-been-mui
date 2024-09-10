@@ -11,181 +11,29 @@ import type { JSX } from 'react';
 import { validateNumberInput } from 'shouldve-been-js';
 
 type QuickNumberInputProps = {
-    labelText: string,
+    labelText?: string | undefined,
     value: string,
-    onKeyDown: (e: React.KeyboardEvent) => void,
-    onBlur: (value: string) => void,
-    icon: IconDefinition | null,
-    minValue: number | null,
-    maxValue: number | null,
-    minWidth: string | number | undefined,
-    maxWidth: string | number | undefined,
-    padding: string,
-    variant: string,
-    dense: boolean,
-    disabled: boolean,
-    allowDecimals: boolean,
-    bold: boolean,
-    rerenderFlag: Date,
-    disabledColor: string | null,
-    fontSize: string,
-    height: string,
-    focusFlag: number | null,
+    onKeyDown?: ((e: React.KeyboardEvent) => void) | undefined,
+    onBlur?: ((value: string) => void) | undefined,
+    icon?: IconDefinition | null | undefined,
+    minValue?: number | null | undefined,
+    maxValue?: number | null | undefined,
+    minWidth?: string | number | undefined,
+    maxWidth?: string | number | undefined,
+    padding?: string | undefined,
+    variant?: string | undefined,
+    dense?: boolean | undefined,
+    disabled?: boolean | undefined,
+    allowDecimals?: boolean | undefined,
+    bold?: boolean | undefined,
+    rerenderFlag?: Date | undefined,
+    disabledColor?: string | null | undefined,
+    fontSize?: string | undefined,
+    height?: string | undefined,
+    focusFlag?: number | null | undefined,
 };
 
-export function QuickNumberInput(props: Readonly<QuickNumberInputProps>): JSX.Element {
-
-    const [inputValue, setInputValue] = useState<string>(props.value);
-
-    const focusRef: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
-
-    useEffect(() => {
-
-        setInputValue(props.value);
-
-    }, [props.value, props.rerenderFlag]);
-
-    useEffect(() => {
-
-        if (props.focusFlag !== null && props.focusFlag > 0) {
-            focusRef.current?.focus();
-        }
-    }, [props.focusFlag]);
-
-    function handleChange(e: React.ChangeEvent): void {
-
-        const validationValue: string | null = validateNumberInput((e.target as HTMLInputElement).value, props.allowDecimals, props.minValue, props.maxValue);
-
-        if (validationValue !== null) {
-            setInputValue(validationValue);
-        }
-    }
-
-    function handleBlur(): void {
-
-        if (inputValue === props.value) { //dont update if value has not been changed (if this is not checked, it creates an issue for multiselection)
-            return;
-        }
-
-        props.onBlur(inputValue);
-    }
-
-    function renderVariant(variant: string): JSX.Element {
-
-        switch (variant) {
-            case 'filled':
-                return (
-                    <FilledInput
-                        value={inputValue.replace(',', '.')}
-                        onChange={handleChange}
-                        onKeyDown={props.onKeyDown}
-                        onClick={(e: React.MouseEvent): void => e.stopPropagation()}
-                        onBlur={handleBlur}
-                        size={props.dense ? 'small' : undefined}
-                        disabled={props.disabled}
-                        startAdornment={
-                            props.icon !== null 
-                                ? <InputAdornment position='start'>
-                                    <FontAwesomeIcon
-                                        icon={props.icon}
-                                    />
-                                </InputAdornment>
-                                : <div></div>
-                        }
-                        style={{
-                            height: props.height,
-                        }}
-                        inputProps={{
-                            inputMode: 'numeric',
-                            style: {
-                                fontSize: props.fontSize,
-                                fontWeight: props.bold ? 'bold' : 'normal',
-                                color: props.disabled ? (props.disabledColor ?? '') : '',
-                            }, 
-                        }}
-                    />
-                );
-            case 'outlined':
-                return (
-                    <OutlinedInput
-                        value={inputValue.replace(',', '.')}
-                        onChange={handleChange}
-                        onKeyDown={props.onKeyDown}
-                        onClick={(e: React.MouseEvent): void => e.stopPropagation()}
-                        onBlur={handleBlur}
-                        size={props.dense ? 'small' : undefined}
-                        disabled={props.disabled}
-                        startAdornment={
-                            props.icon !== null 
-                                ? <InputAdornment position='start'>
-                                    <FontAwesomeIcon
-                                        icon={props.icon}
-                                    />
-                                </InputAdornment>
-                                : <div></div>
-                        }
-                        style={{
-                            height: props.height,
-                        }}
-                        inputProps={{
-                            inputMode: 'numeric',
-                            style: {
-                                fontSize: props.fontSize,
-                                fontWeight: props.bold ? 'bold' : 'normal',
-                                color: props.disabled ? (props.disabledColor ?? '') : '',
-                            }, 
-                        }}
-                        label={props.labelText}
-                    />
-                );
-            default:
-                return (
-                    <Input
-                        value={inputValue.replace(',', '.')}
-                        onChange={handleChange}
-                        onKeyDown={props.onKeyDown}
-                        onClick={(e: React.MouseEvent): void => e.stopPropagation()}
-                        onBlur={handleBlur}
-                        size={props.dense ? 'small' : undefined}
-                        disabled={props.disabled}
-                        startAdornment={
-                            props.icon !== null 
-                                ? <InputAdornment position='start'>
-                                    <FontAwesomeIcon
-                                        icon={props.icon}
-                                    />
-                                </InputAdornment>
-                                : <div></div>
-                        }
-                        style={{
-                            height: props.height,
-                        }}
-                        inputProps={{
-                            inputMode: 'numeric',
-                            style: {
-                                fontSize: props.fontSize,
-                                fontWeight: props.bold ? 'bold' : 'normal',
-                                color: props.disabled ? (props.disabledColor ?? '') : '',
-                            }, 
-                        }}
-                    />
-                );
-        }
-    }
-
-    return (
-        <FormControl style={{
-            minWidth: props.minWidth,
-            maxWidth: props.maxWidth,
-            padding: props.padding,
-        }}>
-            <InputLabel>{props.labelText}</InputLabel>
-            {renderVariant(props.variant)}
-        </FormControl>
-    );
-}
-
-QuickNumberInput.defaultProps = {
+const defaultProps = {
     labelText: '',
     onKeyDown: (): void => {},
     onBlur: (): void => {},
@@ -206,3 +54,175 @@ QuickNumberInput.defaultProps = {
     height: '16px',
     focusFlag: null,
 };
+
+export function QuickNumberInput(props: Readonly<QuickNumberInputProps>): JSX.Element {
+
+    const labelText: string = props.labelText ?? defaultProps.labelText;
+    const onKeyDown: (e: React.KeyboardEvent) => void = props.onKeyDown ?? defaultProps.onKeyDown;
+    const onBlur: (value: string) => void = props.onBlur ?? defaultProps.onBlur;
+    const icon: IconDefinition | null = props.icon ?? defaultProps.icon;
+    const minValue: number | null = props.minValue ?? defaultProps.minValue;
+    const maxValue: number | null = props.maxValue ?? defaultProps.maxValue;
+    const minWidth: string | number = props.minWidth ?? defaultProps.minWidth;
+    const maxWidth: string | number = props.maxWidth ?? defaultProps.maxWidth;
+    const padding: string = props.padding ?? defaultProps.padding;
+    const variant: string = props.variant ?? defaultProps.variant;
+    const dense: boolean = props.dense ?? defaultProps.dense;
+    const disabled: boolean = props.disabled ?? defaultProps.disabled;
+    const allowDecimals: boolean = props.allowDecimals ?? defaultProps.allowDecimals;
+    const bold: boolean = props.bold ?? defaultProps.bold;
+    const rerenderFlag: Date = props.rerenderFlag ?? defaultProps.rerenderFlag;
+    const disabledColor: string | null = props.disabledColor ?? defaultProps.disabledColor;
+    const fontSize: string = props.fontSize ?? defaultProps.fontSize;
+    const height: string | undefined = props.height ?? defaultProps.height;
+    const focusFlag: number | null = props.focusFlag ?? defaultProps.focusFlag;
+
+    const [inputValue, setInputValue] = useState<string>(props.value);
+
+    const focusRef: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+
+        setInputValue(props.value);
+
+    }, [props.value, rerenderFlag]);
+
+    useEffect(() => {
+
+        if (focusFlag !== null && focusFlag > 0) {
+            focusRef.current?.focus();
+        }
+    }, [focusFlag]);
+
+    function handleChange(e: React.ChangeEvent): void {
+
+        const validationValue: string | null = validateNumberInput((e.target as HTMLInputElement).value, allowDecimals, minValue, maxValue);
+
+        if (validationValue !== null) {
+            setInputValue(validationValue);
+        }
+    }
+
+    function handleBlur(): void {
+
+        if (inputValue === props.value) { //dont update if value has not been changed (if this is not checked, it creates an issue for multiselection)
+            return;
+        }
+
+        onBlur(inputValue);
+    }
+
+    function renderVariant(currentVariant: string): JSX.Element {
+
+        switch (currentVariant) {
+            case 'filled':
+                return (
+                    <FilledInput
+                        value={inputValue.replace(',', '.')}
+                        onChange={handleChange}
+                        onKeyDown={onKeyDown}
+                        onClick={(e: React.MouseEvent): void => e.stopPropagation()}
+                        onBlur={handleBlur}
+                        size={dense ? 'small' : undefined}
+                        disabled={disabled}
+                        startAdornment={
+                            icon !== null 
+                                ? <InputAdornment position='start'>
+                                    <FontAwesomeIcon
+                                        icon={icon}
+                                    />
+                                </InputAdornment>
+                                : <div></div>
+                        }
+                        style={{
+                            height: height,
+                        }}
+                        inputProps={{
+                            inputMode: 'numeric',
+                            style: {
+                                fontSize: fontSize,
+                                fontWeight: bold ? 'bold' : 'normal',
+                                color: disabled ? (disabledColor ?? '') : '',
+                            }, 
+                        }}
+                    />
+                );
+            case 'outlined':
+                return (
+                    <OutlinedInput
+                        value={inputValue.replace(',', '.')}
+                        onChange={handleChange}
+                        onKeyDown={props.onKeyDown}
+                        onClick={(e: React.MouseEvent): void => e.stopPropagation()}
+                        onBlur={handleBlur}
+                        size={dense ? 'small' : undefined}
+                        disabled={disabled}
+                        startAdornment={
+                            icon !== null 
+                                ? <InputAdornment position='start'>
+                                    <FontAwesomeIcon
+                                        icon={icon}
+                                    />
+                                </InputAdornment>
+                                : <div></div>
+                        }
+                        style={{
+                            height: height,
+                        }}
+                        inputProps={{
+                            inputMode: 'numeric',
+                            style: {
+                                fontSize: fontSize,
+                                fontWeight: bold ? 'bold' : 'normal',
+                                color: disabled ? (disabledColor ?? '') : '',
+                            }, 
+                        }}
+                        label={labelText}
+                    />
+                );
+            default:
+                return (
+                    <Input
+                        value={inputValue.replace(',', '.')}
+                        onChange={handleChange}
+                        onKeyDown={props.onKeyDown}
+                        onClick={(e: React.MouseEvent): void => e.stopPropagation()}
+                        onBlur={handleBlur}
+                        size={dense ? 'small' : undefined}
+                        disabled={disabled}
+                        startAdornment={
+                            icon !== null 
+                                ? <InputAdornment position='start'>
+                                    <FontAwesomeIcon
+                                        icon={icon}
+                                    />
+                                </InputAdornment>
+                                : <div></div>
+                        }
+                        style={{
+                            height: height,
+                        }}
+                        inputProps={{
+                            inputMode: 'numeric',
+                            style: {
+                                fontSize: fontSize,
+                                fontWeight: bold ? 'bold' : 'normal',
+                                color: disabled ? (disabledColor ?? '') : '',
+                            }, 
+                        }}
+                    />
+                );
+        }
+    }
+
+    return (
+        <FormControl style={{
+            minWidth: minWidth,
+            maxWidth: maxWidth,
+            padding: padding,
+        }}>
+            <InputLabel>{labelText}</InputLabel>
+            {renderVariant(variant)}
+        </FormControl>
+    );
+}

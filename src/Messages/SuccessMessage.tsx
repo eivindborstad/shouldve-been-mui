@@ -29,7 +29,3 @@ export function SuccessMessage(props: Readonly<SuccessMessageProps>): JSX.Elemen
         </>
     );
 }
-
-SuccessMessage.defaultProps = {
-    maxWidth: undefined,
-};

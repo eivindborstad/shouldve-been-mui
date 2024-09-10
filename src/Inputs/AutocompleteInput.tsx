@@ -7,23 +7,40 @@ import type { JSX } from 'react';
 import React, { useEffect, useMemo, useRef } from 'react';
 
 type AutocompleteInputProps = {
-    labelText: string,
+    labelText?: string | undefined,
     value: string,
-    onKeyDown: (e: React.KeyboardEvent) => void,
-    onChange: (value: string) => void,
+    onChange?: ((value: string) => void) | undefined,
     options: { label: string, id: string, disabled: boolean }[],
-    padding: string,
-    dense: boolean,
-    disabled: boolean,
-    width: string | number | undefined,
-    rerenderFlag: number,
-    fontSize: string,
-    focusFlag: number | null,
+    padding?: string | undefined,
+    dense?: boolean | undefined,
+    disabled?: boolean | undefined,
+    width?: string | number | undefined,
+    focusFlag?: number | null | undefined,
     limit: number | null,
-    backgroundColor: string | undefined,
+    backgroundColor?: string | undefined,
+};
+
+const defaultProps = {
+    labelText: '',
+    onChange: (): void => {},
+    width: 250,
+    padding: '0px',
+    dense: false,
+    disabled: false,
+    focusFlag: null,
+    backgroundColor: undefined,
 };
 
 export function AutocompleteInput(props: Readonly<AutocompleteInputProps>): JSX.Element {
+
+    const labelText: string = props.labelText ?? defaultProps.labelText;
+    const onChange: (value: string) => void = props.onChange ?? defaultProps.onChange;
+    const width: string | number = props.width ?? defaultProps.width;
+    const padding: string = props.padding ?? defaultProps.padding;
+    const dense: boolean = props.dense ?? defaultProps.dense;
+    const disabled: boolean = props.disabled ?? defaultProps.disabled;
+    const focusFlag: number | null = props.focusFlag ?? defaultProps.focusFlag;
+    const backgroundColor: string | undefined = props.backgroundColor ?? defaultProps.backgroundColor;
 
     const focusRef: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
 
@@ -38,14 +55,14 @@ export function AutocompleteInput(props: Readonly<AutocompleteInputProps>): JSX.
 
     useEffect(() => {
 
-        if (props.focusFlag !== null && props.focusFlag > 0) {
+        if (focusFlag !== null && focusFlag > 0) {
             focusRef.current?.focus();
         }
-    }, [props.focusFlag]);
+    }, [focusFlag]);
 
     return (
         <FormControl style={{
-            padding: props.padding,
+            padding: padding,
         }}>
             <Autocomplete
                 multiple={false}
@@ -53,30 +70,16 @@ export function AutocompleteInput(props: Readonly<AutocompleteInputProps>): JSX.
                 value={valueOption}
                 options={props.options}
                 isOptionEqualToValue={(option: { label: string, id: string, disabled: boolean } | null, value: { label: string, id: string, disabled: boolean } | null): boolean => option?.id === value?.id}
-                onChange={(e: React.SyntheticEvent, value: { label: string, id: string, disabled: boolean } | null): void => props.onChange(value?.id ?? '')}
+                onChange={(e: React.SyntheticEvent, value: { label: string, id: string, disabled: boolean } | null): void => onChange(value?.id ?? '')}
                 sx={{ 
-                    width: props.width,
-                    backgroundColor: props.backgroundColor,
+                    width: width,
+                    backgroundColor: backgroundColor,
                 }}
-                disabled={props.disabled}
-                renderInput={(params: AutocompleteRenderInputParams): JSX.Element => <TextField {...params} size={props.dense ? 'small' : undefined} label={props.labelText} />}
+                disabled={disabled}
+                renderInput={(params: AutocompleteRenderInputParams): JSX.Element => <TextField {...params} size={dense ? 'small' : undefined} label={labelText} />}
                 filterOptions={filterOptions}
                 getOptionDisabled={(option: { label: string, id: string, disabled: boolean }): boolean => option.disabled}
             />
         </FormControl>
     );
 }
-
-AutocompleteInput.defaultProps = {
-    labelText: '',
-    onKeyDown: (): void => {},
-    onChange: (): void => {},
-    width: 250,
-    padding: '0px',
-    dense: false,
-    disabled: false,
-    rerenderFlag: 0,
-    fontSize: '16px',
-    focusFlag: null,
-    backgroundColor: undefined,
-};

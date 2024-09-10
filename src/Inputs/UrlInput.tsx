@@ -9,17 +9,29 @@ import type { JSX } from 'react';
 import { getAmongAllowedValues } from 'shouldve-been-js';
 
 type UrlInputProps = {
-    labelText: string,
+    labelText?: string | undefined,
     protocol: string,
     url: string,
     onProtocolChange: (value: string) => void,
     onUrlChange: (value: string) => void,
-    onKeyDown: (e: React.KeyboardEvent) => void,
-    minWidth: string | number | undefined,
-    maxWidth: string | number | undefined,
+    onKeyDown?: ((e: React.KeyboardEvent) => void) | undefined,
+    minWidth?: string | number | undefined,
+    maxWidth?: string | number | undefined,
+};
+
+const defaultProps = {
+    labelText: 'URL',
+    onKeyDown: (): void => {},
+    minWidth: '250px',
+    maxWidth: '5000px',
 };
 
 export function UrlInput(props: Readonly<UrlInputProps>): JSX.Element {
+
+    const labelText: string = props.labelText ?? defaultProps.labelText;
+    const onKeyDown: (e: React.KeyboardEvent) => void = props.onKeyDown ?? defaultProps.onKeyDown;
+    const minWidth: string | number = props.minWidth ?? defaultProps.minWidth;
+    const maxWidth: string | number = props.maxWidth ?? defaultProps.maxWidth;
 
     function handleProtocolChange(e: SelectChangeEvent): void {
 
@@ -33,14 +45,14 @@ export function UrlInput(props: Readonly<UrlInputProps>): JSX.Element {
 
     return (
         <FormControl style={{
-            minWidth: props.minWidth,
-            maxWidth: props.maxWidth,
+            minWidth: minWidth,
+            maxWidth: maxWidth,
         }}>
-            <InputLabel>{props.labelText}</InputLabel>
+            <InputLabel>{labelText}</InputLabel>
             <Input
                 value={props.url}
                 onChange={handleUrlChange}
-                onKeyDown={props.onKeyDown}
+                onKeyDown={onKeyDown}
                 startAdornment={
                     <div>
                         <FormControl>
@@ -61,10 +73,3 @@ export function UrlInput(props: Readonly<UrlInputProps>): JSX.Element {
         </FormControl>
     );
 }
-
-UrlInput.defaultProps = {
-    labelText: 'URL',
-    onKeyDown: (): void => {},
-    minWidth: '250px',
-    maxWidth: '5000px',
-};

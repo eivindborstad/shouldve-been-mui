@@ -29,7 +29,3 @@ export function WarningMessage(props: Readonly<WarningMessageProps>): JSX.Elemen
         </>
     );
 }
-
-WarningMessage.defaultProps = {
-    maxWidth: undefined,
-};

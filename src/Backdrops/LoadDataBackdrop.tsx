@@ -1,6 +1,5 @@
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import zIndex from '@mui/material/styles/zIndex';
 import React from 'react';
 import type { JSX } from 'react';
 
@@ -25,7 +24,3 @@ export function LoadDataBackdrop(props: Readonly<LoadDataBackdropProps>): JSX.El
         </Backdrop>
     );
 }
-
-LoadDataBackdrop.defaultProps = {
-    zIndex: undefined,
-};

@@ -11,14 +11,26 @@ import type { JSX } from 'react';
 
 type PasswordInputProps = {
     password: string,
-    labelText: string,
+    labelText?: string | undefined,
     onPasswordChange: (password: string) => void,
-    onKeyDown: (e: React.KeyboardEvent) => void,
-    minWidth: string | number | undefined,
-    maxWidth: string | number | undefined,
+    onKeyDown?: ((e: React.KeyboardEvent) => void) | undefined,
+    minWidth?: string | number | undefined,
+    maxWidth?: string | number | undefined,
+};
+
+const defaultProps = {
+    labelText: 'Password',
+    onKeyDown: (): void => {},
+    minWidth: '250px',
+    maxWidth: '5000px',
 };
 
 export function PasswordInput(props: Readonly<PasswordInputProps>): JSX.Element {
+
+    const labelText: string = props.labelText ?? defaultProps.labelText;
+    const onKeyDown: (e: React.KeyboardEvent) => void = props.onKeyDown ?? defaultProps.onKeyDown;
+    const minWidth: string | number = props.minWidth ?? defaultProps.minWidth;
+    const maxWidth: string | number = props.maxWidth ?? defaultProps.maxWidth;
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -39,15 +51,15 @@ export function PasswordInput(props: Readonly<PasswordInputProps>): JSX.Element 
 
     return (
         <FormControl style={{
-            minWidth: props.minWidth,
-            maxWidth: props.maxWidth,
+            minWidth: minWidth,
+            maxWidth: maxWidth,
         }}>
-            <InputLabel>{props.labelText}</InputLabel>
+            <InputLabel>{labelText}</InputLabel>
             <Input
                 type={showPassword ? 'text' : 'password'}
                 value={props.password}
                 onChange={handleChange}
-                onKeyDown={props.onKeyDown}
+                onKeyDown={onKeyDown}
                 startAdornment={
                     <InputAdornment position='start'>
                         <FontAwesomeIcon icon={faKey} />
@@ -68,10 +80,3 @@ export function PasswordInput(props: Readonly<PasswordInputProps>): JSX.Element 
         </FormControl>
     );
 }
-
-PasswordInput.defaultProps = {
-    labelText: 'Password',
-    onKeyDown: (): void => {},
-    minWidth: '250px',
-    maxWidth: '5000px',
-};

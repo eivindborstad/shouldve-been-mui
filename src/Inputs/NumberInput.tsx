@@ -11,144 +11,27 @@ import type { JSX } from 'react';
 import { validateNumberInput } from 'shouldve-been-js';
 
 type NumberInputProps = {
-    labelText: string,
+    labelText?: string | undefined,
     value: string,
     onChange: (value: string) => void,
-    onKeyDown: (e: React.KeyboardEvent) => void,
-    onBlur: () => void,
-    icon: IconDefinition | null,
-    minValue: number | null,
-    maxValue: number | null,
-    minWidth: string | number | undefined,
-    maxWidth: string | number | undefined,
-    padding: string,
-    variant: string,
-    dense: boolean,
-    disabled: boolean,
-    allowDecimals: boolean,
-    bold: boolean,
-    disabledColor: string | null,
-    fontSize: string,
+    onKeyDown?: ((e: React.KeyboardEvent) => void) | undefined,
+    onBlur?: (() => void) | undefined,
+    icon?: IconDefinition | null | undefined,
+    minValue?: number | null | undefined,
+    maxValue?: number | null | undefined,
+    minWidth?: string | number | undefined,
+    maxWidth?: string | number | undefined,
+    padding?: string | undefined,
+    variant?: string | undefined,
+    dense?: boolean | undefined,
+    disabled?: boolean | undefined,
+    allowDecimals?: boolean | undefined,
+    bold?: boolean | undefined,
+    disabledColor?: string | null | undefined,
+    fontSize?: string | undefined,
 };
 
-export function NumberInput(props: Readonly<NumberInputProps>): JSX.Element {
-
-    function handleChange(e: React.ChangeEvent): void {
-
-        const validationValue: string | null = validateNumberInput((e.target as HTMLInputElement).value, props.allowDecimals, props.minValue, props.maxValue);
-
-        if (!props.disabled && validationValue !== null) {
-            props.onChange(validationValue);
-        }
-    }
-
-    function renderVariant(variant: string): JSX.Element {
-
-        switch (variant) {
-            case 'filled':
-                return (
-                    <FilledInput 
-                        value={props.value.replace(',', '.')}
-                        onChange={handleChange}
-                        onKeyDown={props.onKeyDown}
-                        onClick={(e: React.MouseEvent): void => e.stopPropagation()}
-                        onBlur={props.onBlur}
-                        size={props.dense ? 'small' : undefined}
-                        disabled={props.disabled}
-                        startAdornment={
-                            props.icon !== null 
-                                ? <InputAdornment position='start'>
-                                    <FontAwesomeIcon 
-                                        icon={props.icon} 
-                                    />
-                                </InputAdornment>
-                                : <div></div>
-                        }
-                        inputProps={{
-                            inputMode: 'numeric',
-                            style: {
-                                fontWeight: props.bold ? 'bold' : 'normal',
-                                color: props.disabled ? (props.disabledColor ?? '') : '',
-                                fontSize: props.fontSize,
-                            }, 
-                        }}       
-                    />
-                );
-            case 'outlined':
-                return (
-                    <OutlinedInput 
-                        value={props.value.replace(',', '.')}
-                        onChange={handleChange}
-                        onKeyDown={props.onKeyDown}
-                        onClick={(e: React.MouseEvent): void => e.stopPropagation()}
-                        onBlur={props.onBlur}
-                        size={props.dense ? 'small' : undefined}
-                        disabled={props.disabled}
-                        startAdornment={
-                            props.icon !== null 
-                                ? <InputAdornment position='start'>
-                                    <FontAwesomeIcon 
-                                        icon={props.icon} 
-                                    />
-                                </InputAdornment>
-                                : <div></div>
-                        }
-                        inputProps={{
-                            inputMode: 'numeric',
-                            style: {
-                                fontWeight: props.bold ? 'bold' : 'normal',
-                                color: props.disabled ? (props.disabledColor ?? '') : '',
-                                fontSize: props.fontSize,
-                            }, 
-                        }}
-                        label={props.labelText}
-                    />
-                );
-            default:
-                return (
-                    <Input 
-                        value={props.value.replace(',', '.')}
-                        onChange={handleChange}
-                        onKeyDown={props.onKeyDown}
-                        onClick={(e: React.MouseEvent): void => e.stopPropagation()}
-                        onBlur={props.onBlur}
-                        size={props.dense ? 'small' : undefined}
-                        disabled={props.disabled}
-                        startAdornment={
-                            props.icon !== null 
-                                ? <InputAdornment position='start'>
-                                    <FontAwesomeIcon 
-                                        icon={props.icon} 
-                                    />
-                                </InputAdornment>
-                                : <div></div>
-                        }
-                        inputProps={{
-                            inputMode: 'numeric',
-                            style: {
-                                fontWeight: props.bold ? 'bold' : 'normal',
-                                color: props.disabled ? (props.disabledColor ?? '') : '',
-                                fontSize: props.fontSize,
-                            }, 
-                        }}
-                    />
-                );
-        }
-    }
-
-    return (
-        <FormControl style={{
-            minWidth: props.minWidth,
-            maxWidth: props.maxWidth,
-            padding: props.padding,
-        }}>
-            <InputLabel>{props.labelText}</InputLabel>
-            {renderVariant(props.variant)}
-        </FormControl>
-    );
-}
-
-NumberInput.defaultProps = {
+const defaultProps = {
     labelText: 'Number',
     onKeyDown: (): void => {},
     onBlur: (): void => {},
@@ -166,3 +49,137 @@ NumberInput.defaultProps = {
     disabledColor: null,
     fontSize: '12px',
 };
+
+export function NumberInput(props: Readonly<NumberInputProps>): JSX.Element {
+
+    const labelText: string = props.labelText ?? defaultProps.labelText;
+    const onKeyDown: (e: React.KeyboardEvent) => void = props.onKeyDown ?? defaultProps.onKeyDown;
+    const onBlur: () => void = props.onBlur ?? defaultProps.onBlur;
+    const icon: IconDefinition | null = props.icon ?? defaultProps.icon;
+    const minValue: number | null = props.minValue ?? defaultProps.minValue;
+    const maxValue: number | null = props.maxValue ?? defaultProps.maxValue;
+    const minWidth: string | number = props.minWidth ?? defaultProps.minWidth;
+    const maxWidth: string | number = props.maxWidth ?? defaultProps.maxWidth;
+    const padding: string = props.padding ?? defaultProps.padding;
+    const variant: string = props.variant ?? defaultProps.variant;
+    const dense: boolean = props.dense ?? defaultProps.dense;
+    const disabled: boolean = props.disabled ?? defaultProps.disabled;
+    const allowDecimals: boolean = props.allowDecimals ?? defaultProps.allowDecimals;
+    const bold: boolean = props.bold ?? defaultProps.bold;
+    const disabledColor: string | null = props.disabledColor ?? defaultProps.disabledColor;
+    const fontSize: string = props.fontSize ?? defaultProps.fontSize;
+
+    function handleChange(e: React.ChangeEvent): void {
+
+        const validationValue: string | null = validateNumberInput((e.target as HTMLInputElement).value, allowDecimals, minValue, maxValue);
+
+        if (!disabled && validationValue !== null) {
+            props.onChange(validationValue);
+        }
+    }
+
+    function renderVariant(currentVariant: string): JSX.Element {
+
+        switch (currentVariant) {
+            case 'filled':
+                return (
+                    <FilledInput 
+                        value={props.value.replace(',', '.')}
+                        onChange={handleChange}
+                        onKeyDown={onKeyDown}
+                        onClick={(e: React.MouseEvent): void => e.stopPropagation()}
+                        onBlur={onBlur}
+                        size={dense ? 'small' : undefined}
+                        disabled={disabled}
+                        startAdornment={
+                            icon !== null 
+                                ? <InputAdornment position='start'>
+                                    <FontAwesomeIcon 
+                                        icon={icon} 
+                                    />
+                                </InputAdornment>
+                                : <div></div>
+                        }
+                        inputProps={{
+                            inputMode: 'numeric',
+                            style: {
+                                fontWeight: bold ? 'bold' : 'normal',
+                                color: disabled ? (disabledColor ?? '') : '',
+                                fontSize: fontSize,
+                            }, 
+                        }}       
+                    />
+                );
+            case 'outlined':
+                return (
+                    <OutlinedInput 
+                        value={props.value.replace(',', '.')}
+                        onChange={handleChange}
+                        onKeyDown={onKeyDown}
+                        onClick={(e: React.MouseEvent): void => e.stopPropagation()}
+                        onBlur={onBlur}
+                        size={dense ? 'small' : undefined}
+                        disabled={disabled}
+                        startAdornment={
+                            icon !== null 
+                                ? <InputAdornment position='start'>
+                                    <FontAwesomeIcon 
+                                        icon={icon} 
+                                    />
+                                </InputAdornment>
+                                : <div></div>
+                        }
+                        inputProps={{
+                            inputMode: 'numeric',
+                            style: {
+                                fontWeight: bold ? 'bold' : 'normal',
+                                color: disabled ? (disabledColor ?? '') : '',
+                                fontSize: fontSize,
+                            }, 
+                        }}
+                        label={labelText}
+                    />
+                );
+            default:
+                return (
+                    <Input 
+                        value={props.value.replace(',', '.')}
+                        onChange={handleChange}
+                        onKeyDown={onKeyDown}
+                        onClick={(e: React.MouseEvent): void => e.stopPropagation()}
+                        onBlur={onBlur}
+                        size={dense ? 'small' : undefined}
+                        disabled={disabled}
+                        startAdornment={
+                            icon !== null 
+                                ? <InputAdornment position='start'>
+                                    <FontAwesomeIcon 
+                                        icon={icon} 
+                                    />
+                                </InputAdornment>
+                                : <div></div>
+                        }
+                        inputProps={{
+                            inputMode: 'numeric',
+                            style: {
+                                fontWeight: bold ? 'bold' : 'normal',
+                                color: disabled ? (disabledColor ?? '') : '',
+                                fontSize: fontSize,
+                            }, 
+                        }}
+                    />
+                );
+        }
+    }
+
+    return (
+        <FormControl style={{
+            minWidth: minWidth,
+            maxWidth: maxWidth,
+            padding: padding,
+        }}>
+            <InputLabel>{labelText}</InputLabel>
+            {renderVariant(variant)}
+        </FormControl>
+    );
+}

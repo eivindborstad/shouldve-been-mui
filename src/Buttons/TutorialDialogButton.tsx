@@ -39,7 +39,3 @@ export function TutorialDialogButton(props: Readonly<TutorialDialogButtonProps>)
         </>
     );
 }
-
-TutorialDialogButton.defaultProps = {
-    size: 'lg',
-};
