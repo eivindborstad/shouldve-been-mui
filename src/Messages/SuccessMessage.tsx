@@ -21,6 +21,7 @@ export function SuccessMessage(props: Readonly<SuccessMessageProps>): JSX.Elemen
                         fontWeight: 'bold',
                         wordWrap: 'normal',
                         maxWidth: props.maxWidth,
+                        margin: 'auto',
                     }}
                 >
                     {props.message}

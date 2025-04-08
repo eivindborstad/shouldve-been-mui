@@ -21,6 +21,7 @@ export function ErrorMessage(props: Readonly<ErrorMessageProps>): JSX.Element {
                         fontWeight: 'bold',
                         wordWrap: 'normal',
                         maxWidth: props.maxWidth,
+                        margin: 'auto',
                     }}
                 >
                     {props.message}

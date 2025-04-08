@@ -21,6 +21,7 @@ export function WarningMessage(props: Readonly<WarningMessageProps>): JSX.Elemen
                         fontWeight: 'bold',
                         wordWrap: 'normal',
                         maxWidth: props.maxWidth,
+                        margin: 'auto',
                     }}
                 >
                     {props.message}

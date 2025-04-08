@@ -56,8 +56,8 @@ export function NumberInput(props: Readonly<NumberInputProps>): JSX.Element {
     const onKeyDown: (e: React.KeyboardEvent) => void = props.onKeyDown ?? defaultProps.onKeyDown;
     const onBlur: () => void = props.onBlur ?? defaultProps.onBlur;
     const icon: IconDefinition | null = props.icon ?? defaultProps.icon;
-    const minValue: number | null = props.minValue ?? defaultProps.minValue;
-    const maxValue: number | null = props.maxValue ?? defaultProps.maxValue;
+    const minValue: number | null = props.minValue === undefined ? defaultProps.minValue : props.minValue;
+    const maxValue: number | null = props.maxValue === undefined ? defaultProps.maxValue : props.maxValue;
     const minWidth: string | number = props.minWidth ?? defaultProps.minWidth;
     const maxWidth: string | number = props.maxWidth ?? defaultProps.maxWidth;
     const padding: string = props.padding ?? defaultProps.padding;
