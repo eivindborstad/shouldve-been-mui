@@ -9,6 +9,7 @@ type SortLabelProps = {
     sortDirection: 'asc' | 'desc',
     setSortDirection: (value: 'asc' | 'desc') => void,
     columnId: string,
+    onSorted: ((activeSort: string, sortDirection: 'asc' | 'desc') => void) | undefined,
 };
 
 export function SortLabel(props: Readonly<SortLabelProps>): JSX.Element {
@@ -18,6 +19,10 @@ export function SortLabel(props: Readonly<SortLabelProps>): JSX.Element {
         const isAsc = props.activeSort === columnId && props.sortDirection === 'asc';
         props.setSortDirection(isAsc ? 'desc' : 'asc');
         props.setActiveSort(columnId);
+
+        if (props.onSorted !== undefined) {
+            props.onSorted(columnId, isAsc ? 'desc' : 'asc');
+        }
     }
 
     return (
