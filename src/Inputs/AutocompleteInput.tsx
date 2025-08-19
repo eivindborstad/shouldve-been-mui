@@ -18,6 +18,7 @@ type AutocompleteInputProps = {
     focusFlag?: number | null | undefined,
     limit: number | null,
     backgroundColor?: string | undefined,
+    allowArbitraryValues?: boolean | undefined,
 };
 
 const defaultProps = {
@@ -29,6 +30,7 @@ const defaultProps = {
     disabled: false,
     focusFlag: null,
     backgroundColor: undefined,
+    allowArbitraryValues: false,
 };
 
 export function AutocompleteInput(props: Readonly<AutocompleteInputProps>): JSX.Element {
@@ -41,6 +43,7 @@ export function AutocompleteInput(props: Readonly<AutocompleteInputProps>): JSX.
     const disabled: boolean = props.disabled ?? defaultProps.disabled;
     const focusFlag: number | null = props.focusFlag ?? defaultProps.focusFlag;
     const backgroundColor: string | undefined = props.backgroundColor ?? defaultProps.backgroundColor;
+    const allowArbitraryValues: boolean = props.allowArbitraryValues ?? defaultProps.allowArbitraryValues;
 
     const focusRef: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
 
@@ -48,10 +51,18 @@ export function AutocompleteInput(props: Readonly<AutocompleteInputProps>): JSX.
         limit: props.limit ?? undefined,
     }), [props.limit]);
 
-    const valueOption: { label: string, id: string, disabled: boolean } | null = useMemo<{ label: string, id: string, disabled: boolean } | null>(() => {
+    const valueOption: string | { label: string, id: string, disabled: boolean } | null = useMemo<string | { label: string, id: string, disabled: boolean } | null>(() => {
 
-        return props.options.find((option: { label: string, id: string, disabled: boolean }) => props.value === option.id) ?? null;
-    }, [props.options, props.value]);
+        const existingOptionmatch: { label: string, id: string, disabled: boolean } | null = props.options.find((option: { label: string, id: string, disabled: boolean }) => props.value === option.id) ?? null;
+
+        if (existingOptionmatch !== null) {
+            return existingOptionmatch;
+        } else if (allowArbitraryValues) {
+            return props.value;
+        } else {
+            return null;
+        }
+    }, [allowArbitraryValues, props.options, props.value]);
 
     useEffect(() => {
 
@@ -70,7 +81,18 @@ export function AutocompleteInput(props: Readonly<AutocompleteInputProps>): JSX.
                 value={valueOption}
                 options={props.options}
                 isOptionEqualToValue={(option: { label: string, id: string, disabled: boolean } | null, value: { label: string, id: string, disabled: boolean } | null): boolean => option?.id === value?.id}
-                onChange={(e: React.SyntheticEvent, value: { label: string, id: string, disabled: boolean } | null): void => onChange(value?.id ?? '')}
+                onChange={(e: React.SyntheticEvent, value: string | { label: string, id: string, disabled: boolean } | null): void => {
+                    if (typeof value === 'string') {
+                        onChange(value);
+                    } else {
+                        onChange(value?.id ?? '');
+                    }
+                }}
+                onKeyDown={(e: React.KeyboardEvent): void => {
+                    if (allowArbitraryValues) {
+                        onChange((e.target as HTMLInputElement).value);
+                    }
+                }}
                 sx={{ 
                     width: width,
                     backgroundColor: backgroundColor,
@@ -79,6 +101,8 @@ export function AutocompleteInput(props: Readonly<AutocompleteInputProps>): JSX.
                 renderInput={(params: AutocompleteRenderInputParams): JSX.Element => <TextField {...params} size={dense ? 'small' : undefined} label={labelText} />}
                 filterOptions={filterOptions}
                 getOptionDisabled={(option: { label: string, id: string, disabled: boolean }): boolean => option.disabled}
+                freeSolo={allowArbitraryValues}
+                autoSelect={allowArbitraryValues}
             />
         </FormControl>
     );

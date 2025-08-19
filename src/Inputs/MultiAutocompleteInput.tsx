@@ -17,6 +17,7 @@ type MultiAutocompleteInputProps = {
     width?: string | number | undefined,
     focusFlag?: number | null | undefined,
     backgroundColor?: string | undefined,
+    allowArbitraryValues?: boolean | undefined,
 };
 
 const defaultProps = {
@@ -28,9 +29,12 @@ const defaultProps = {
     disabled: false,
     focusFlag: null,
     backgroundColor: undefined,
+    allowArbitraryValues: false,
 };
 
 export function MultiAutocompleteInput(props: Readonly<MultiAutocompleteInputProps>): JSX.Element {
+
+    //might be some more changes needed her to work with arbitrary values, but will fix that when it is needed
 
     const labelText: string = props.labelText ?? defaultProps.labelText;
     const onChange: (values: string[]) => void = props.onChange ?? defaultProps.onChange;
@@ -40,6 +44,7 @@ export function MultiAutocompleteInput(props: Readonly<MultiAutocompleteInputPro
     const disabled: boolean = props.disabled ?? defaultProps.disabled;
     const focusFlag: number | null = props.focusFlag ?? defaultProps.focusFlag;
     const backgroundColor: string | undefined = props.backgroundColor ?? defaultProps.backgroundColor;
+    const allowArbitraryValues: boolean = props.allowArbitraryValues ?? defaultProps.allowArbitraryValues;
 
     const focusRef: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
 
@@ -66,13 +71,21 @@ export function MultiAutocompleteInput(props: Readonly<MultiAutocompleteInputPro
                 value={valueOptions}
                 options={props.options}
                 isOptionEqualToValue={(option: { label: string, id: string } | null, value: { label: string, id: string } | null): boolean => option?.id === value?.id}
-                onChange={(e: SyntheticEvent, values: ({ label: string, id: string } | null)[]): void => onChange(values.map((value: { label: string, id: string } | null) => value?.id ?? ''))}
+                onChange={(e: SyntheticEvent, values: (string | { label: string, id: string } | null)[]): void => onChange(values.map((value: string | { label: string, id: string } | null) => {
+                    if (typeof value === 'string') {
+                        return value;
+                    } else {
+                        return value?.id ?? '';
+                    }
+                }))}
                 sx={{ 
                     width: width,
                     backgroundColor: backgroundColor,
                 }}
                 disabled={disabled}
                 renderInput={(params: AutocompleteRenderInputParams): JSX.Element => <TextField {...params} size={dense ? 'small' : undefined} />}
+                freeSolo={allowArbitraryValues}
+                autoSelect={allowArbitraryValues}
             />
         </FormControl>
     );

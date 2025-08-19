@@ -1,6 +1,6 @@
 {
   "name": "shouldve-been-mui",
-  "version": "1.0.10",
+  "version": "1.0.15",
   "main": "./dist/entry.js",
   "module": "./dist/entry.mjs",
   "types": "./dist/entry.d.ts",
